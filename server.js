@@ -87,8 +87,8 @@ app.post( "/api/notes", function( req, res ) {
 app.delete("/api/notes/:id", function( req, res ) {
 
     //access :id from req.params.id
-    var id = req.params.id;
-    console.log(req.params.id);
+    var id = parseInt( req.params.id );
+    console.log( id );
     
     //use the fs module to read the file
     fs.readFile( path.join(__dirname, "db", "db.json" ), function( error, data ) {
@@ -102,7 +102,7 @@ app.delete("/api/notes/:id", function( req, res ) {
 
     //use the array.filter() method to filter out the matching element
     // parsedArray = parsedArray.filter( element => element.id == id );
-    parsedArray.splice(parsedArray.findIndex( element => element.id == id ),1);
+    parsedArray.splice(parsedArray.findIndex( element => element.id === id ),1);
     jsonArray = JSON.stringify( parsedArray );
     fs.writeFile( path.join(__dirname, "db", "db.json" ), jsonArray, (err) => {
       if (err) throw err;
